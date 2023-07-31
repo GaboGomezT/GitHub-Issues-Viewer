@@ -10,7 +10,7 @@
     "start": "serve dist -s -n -L -p $PORT"
   },
   "dependencies": {
-    "@picocss/pico": "^1.5.10",
+    "@octokit/rest": "^20.0.1",
     "@vitejs/plugin-react": "^4.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
