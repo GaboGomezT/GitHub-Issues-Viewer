@@ -1,11 +1,17 @@
 import React from "react";
 
 function truncate(str, num) {
-	if (str.length <= num) {
-		return str;
-	}
-	return str.slice(0, num) + "...";
+  if (str === null || str === undefined) {
+    return "No Description";
+  }
+
+  if (str.length <= num) {
+    return str;
+  }
+
+  return str.slice(0, num) + "...";
 }
+
 
 export default function Issue({ issue }) {
 	return (
