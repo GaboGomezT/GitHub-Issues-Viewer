@@ -4,3 +4,28 @@
   padding: 2rem;
   text-align: center;
 }
+.issue-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.issue-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  
+}
+
+.issue-card p {
+  margin: 0.5em 0; 
+}
+
+.issue-card header {
+  margin-bottom: 0;
+}
+
+.issue-card footer {
+  margin-top: 0;
+}

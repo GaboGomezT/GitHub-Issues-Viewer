@@ -8,9 +8,11 @@ function App() {
 	return (
 		<div>
 			<RepoURL setIssues={setIssues} issues={issues} />
-			{issues.map((issue) => (
-				<Issue key={issue.id} issue={issue} />
-			))}
+			<div className="issue-grid">
+				{issues.map((issue) => (
+					<Issue key={issue.id} issue={issue} />
+				))}
+			</div>
 		</div>
 	);
 }
