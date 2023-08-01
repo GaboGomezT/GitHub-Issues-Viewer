@@ -6,9 +6,9 @@ const octokit = new Octokit({ auth: import.meta.env.VITE_GITHUB_PAT });
 export default function RepoURL({ setIssues }) {
 	const [repoUrl, setRepoUrl] = useState("");
 	const [currentPage, setCurrentPage] = useState(1);
+	const [noMoreIssues, setNoMoreIssues] = useState(false);
 
 	const getRepoIssues = async (page) => {
-		// Receive the page as an argument
 		const urlElements = repoUrl.split("/");
 		const owner = urlElements[urlElements.length - 2];
 		const repo = urlElements[urlElements.length - 1];
@@ -19,6 +19,11 @@ export default function RepoURL({ setIssues }) {
 				page: page,
 				per_page: 10,
 			});
+			if (data.length === 0) {
+				setNoMoreIssues(true);
+			} else {
+				setNoMoreIssues(false);
+			}
 			setIssues(data);
 		} catch (error) {
 			console.error("Failed to fetch issues", error);
@@ -49,7 +54,7 @@ export default function RepoURL({ setIssues }) {
 				required
 			/>
 
-			{currentPage === 1 && ( // Only show the 'Fetch Issues' button if the current page is 1
+			{currentPage === 1 && (
 				<button
 					type="button"
 					onClick={() => {
@@ -62,20 +67,23 @@ export default function RepoURL({ setIssues }) {
 				</button>
 			)}
 
-			{currentPage > 2 && ( // Only show the 'Previous Page' button if the current page is greater than 1
+			{currentPage > 2 && (
 				<button type="button" onClick={handlePrevPageClick}>
 					Previous Page
 				</button>
 			)}
 
-			{currentPage >= 2 && ( // Only show the 'Next Page' button if issues have been fetched at least once
-				<div>
-					<button type="button" onClick={handleNextPageClick}>
-						Next Page
-					</button>
-					<p>Page: {currentPage - 1}</p>
-				</div>
-			)}
+			{currentPage >= 2 &&
+				!noMoreIssues && ( // added noMoreIssues condition here
+					<div>
+						<button type="button" onClick={handleNextPageClick}>
+							Next Page
+						</button>
+						<p>Page: {currentPage - 1}</p>
+					</div>
+				)}
+
+			{noMoreIssues && <p>No more issues.</p>}
 		</div>
 	);
 }

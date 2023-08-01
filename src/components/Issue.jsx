@@ -41,7 +41,7 @@ export default function Issue({ issue }) {
 						{issue.assignee.login}
 					</a>
 				) : (
-					"No assignee"
+					" No assignee"
 				)}
 			</footer>
 		</article>
